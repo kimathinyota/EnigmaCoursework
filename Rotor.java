@@ -1,4 +1,3 @@
-
 public abstract class Rotor {
 	
 	protected String name;
@@ -8,13 +7,13 @@ public abstract class Rotor {
 	
 	public void setPosition(int position) {
 		
-		position = this.position;
+		this.position = position;
 		
 	}
 	
 	public int getPosition() {
 		
-		return position;
+		return this.position;
 		
 	}
 	
@@ -27,5 +26,6 @@ public abstract class Rotor {
 	 * substitute(int) method:
 	 */
 	public abstract int substitute(int input);
-	
+
+		
 }
