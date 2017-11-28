@@ -8,7 +8,7 @@ public class BasicRotor extends Rotor{
 		Integer mappingIV[] = {4, 18, 14, 21, 15, 25, 9, 0, 24, 16, 20, 8, 17, 7, 23, 11, 13, 5, 19, 6, 10, 3, 2, 12, 22, 1 };
 		Integer mappingV[] = { 21, 25, 1, 17, 6, 8, 19, 24, 20, 15, 18, 3, 13, 7, 11, 23, 0, 22, 12, 9, 16, 14, 5, 4, 2, 10 };
 		
-		switch(this.name) {
+		switch(rotorType) {
 			case "I":
 				this.mapping = mappingI;
 				break;
@@ -27,20 +27,55 @@ public class BasicRotor extends Rotor{
 		}
 		
 	}
+	/*
+	 * substitute(int)
+	 * takes integer representing letter
+	 * returns integer represented by that position in the mapping
+	 * takes into consideration position of roto when making this substitution
+	 */
+	public int substitute(int inputLetter) {
+		int overflow = ( inputLetter - this.getPosition() ) % 26;
+		if(overflow<0) overflow+=26;
+		return ( mapping[ overflow ] + this.getPosition() ) % 26;
+		
+	}
+	/*
+	 * create inverseMapping from mapping such that:
+	 * mapping[x] = y, then inverseMapping[y] = x.
+	 */
+	public int substituteBack(int inputLetter) {
+		Integer inverseMapping[] = new Integer[26];
+		for(int i=0;i<mapping.length;i++) {
+			inverseMapping[mapping[i]] = i;
+		}
 
-	public int substitute(int input) {
-		if(this.getPosition()==0) {
-			return mapping[input];
-		}else if(this.getPosition()==10) {
-			input-=10;
-			
-			
+		int overflow = ( inputLetter - this.getPosition() ) % 26;
+		if(overflow<0) overflow+=26;
+		
+		return ( inverseMapping[ overflow ] + this.getPosition() ) % 26;
+		
+		/*
+		 * or could return inverseMapping[inputLetter - this.getPosition()] + this.getPosition()
+		 */
+	}
+	
+	/*
+	 * rotate():
+	 * advances position of rotor by 1
+	 * will set it back to 0 if rotor has completed a full revolution (position == ROTORSIZE)
+	 */
+	public void rotate() {
+		this.setPosition(this.getPosition()+1);
+		if(this.getPosition()==this.ROTORSIZE) {
+			this.setPosition(0);
 		}
 	}
 	
 	public BasicRotor(String type) {
 		super();
 		this.name = type;
+		this.initialise(type);
+		
 	}
 
 }
