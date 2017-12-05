@@ -9,13 +9,24 @@ import java.util.ArrayList;
 public class Plugboard {
 	
 	private ArrayList<Plug> plugs;
+	
+	public void showPlugs() {
+		
+		for(Plug plug: plugs) {
+			
+			System.out.println(plug.getEnd1()+ " - " + plug.getEnd2());
+			
+		}
+		
+	}
+	
 	/*
 	 * addPlug(char firstEnd, char secondEnd) method
 	 * creates Plug given input
 	 * adds created Plug to plugs given there are no clashes
 	 * returns true if plug can be added
 	 */
-	public boolean addPlug(char firstEnd, char secondEnd) {
+	public boolean addPlug(char firstEnd, char secondEnd) throws Exception {
 		
 		Plug newPlug = new Plug(firstEnd,secondEnd);
 		/*
@@ -25,12 +36,13 @@ public class Plugboard {
 		for(Plug currentPlug : plugs) {
 			
 			if(currentPlug.clashesWith(newPlug) | plugs.size() > 12 ) {
-				return false;
+				throw new Exception("Error: You inputted clashing plugs");
 			}
 			
 		}
 		
 		plugs.add(newPlug);
+		
 		
 		return true;
 	}

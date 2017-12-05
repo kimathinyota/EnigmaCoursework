@@ -54,9 +54,6 @@ public class BasicRotor extends Rotor{
 		
 		return ( inverseMapping[ overflow ] + this.getPosition() ) % 26;
 		
-		/*
-		 * or could return inverseMapping[inputLetter - this.getPosition()] + this.getPosition()
-		 */
 	}
 	
 	/*
